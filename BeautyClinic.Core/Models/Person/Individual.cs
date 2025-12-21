@@ -1,5 +1,7 @@
 ﻿using BeautyClinic.Core.Base;
 using BeautyClinic.Core.Enums;
+using BeautyClinic.Core.Models.Consulation;
+using BeautyClinic.Core.Models.Patient;
 using BeautyClinic.Core.ValueObjects;
 
 namespace BeautyClinic.Core.Models.Person;
