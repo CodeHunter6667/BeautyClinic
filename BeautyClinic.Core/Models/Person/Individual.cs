@@ -26,7 +26,6 @@ public class Individual : BaseEntity
     }
     public string Cpf { get; set; } = string.Empty;
     public EGender Gender { get; set; }
-    public ERecordType RecordType { get; set; }
     public List<Appointment.Appointment> Appointments { get; set; } = new();
     public List<BodyAnamnesis> BodyAnamneses { get; set; } = new();
     public List<FacialAnamnesis> FacialAnamneses { get; set; } = new();

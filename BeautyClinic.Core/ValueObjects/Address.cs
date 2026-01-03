@@ -13,4 +13,5 @@ public class Address : BaseEntity
     public string State { get; set; } = string.Empty;
     public string ZipCode { get; set; } = string.Empty;
     public List<Individual> Individuals { get; set; } = new();
+    public List<Professional> Professionals { get; set; } = new();
 }
