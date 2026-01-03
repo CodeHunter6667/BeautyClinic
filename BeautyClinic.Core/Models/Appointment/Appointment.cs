@@ -11,7 +11,6 @@ public class Appointment : BaseEntity
     public string ProcedureRoom { get; set; } = string.Empty;
     public Procedure.Procedure Procedure { get; set; } = new();
     public long ProcedureId { get; set; }
-    public TimeSpan AppointmentTime { get; set; }
     public DateTime AppointmentDate { get; set; }
     public long ProfessionalId { get; set; }
     public Professional Professional { get; set; } = new();
