@@ -1,0 +1,32 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace BeautyClinic.Infrastructure.Context.Mapping.Procedure;
+
+public class ProcedurePackMapping : IEntityTypeConfiguration<Core.Models.Procedure.ProcedurePack>
+{
+    public void Configure(EntityTypeBuilder<Core.Models.Procedure.ProcedurePack> builder)
+    {
+        builder.ToTable("ProcedurePack");
+
+        builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Id)
+        .ValueGeneratedOnAdd()
+        .UseMySqlIdentityColumn();
+
+        builder.Property(x => x.PackName)
+        .IsRequired()
+        .HasMaxLength(100);
+
+        builder.Property(x => x.Description)
+        .IsRequired()
+        .HasMaxLength(250);
+
+        builder.Property(x => x.Price)
+        .IsRequired();
+
+        builder.Property(x => x.Active)
+        .IsRequired();
+    }
+}
