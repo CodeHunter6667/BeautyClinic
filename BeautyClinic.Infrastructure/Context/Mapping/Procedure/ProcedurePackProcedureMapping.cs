@@ -16,5 +16,8 @@ public class ProcedurePackProcedureMapping : IEntityTypeConfiguration<Core.Model
         builder.HasOne(ppp => ppp.Procedure)
             .WithMany(p => p.ProcedurePackProcedures)
             .HasForeignKey(ppp => ppp.ProcedureId);
+
+        builder.Property(ppp => ppp.Quantity)
+        .IsRequired();
     }
 }

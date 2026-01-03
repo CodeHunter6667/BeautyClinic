@@ -11,6 +11,18 @@ public class ProcedurePackMapping : IEntityTypeConfiguration<Core.Models.Procedu
 
         builder.HasKey(x => x.Id);
 
+        builder.Property(x => x.CreatedAt)
+        .IsRequired();
+
+        builder.Property(x => x.CreatedBy)
+        .IsRequired();
+
+        builder.Property(x => x.UpdatedAt)
+        .IsRequired(false);
+
+        builder.Property(x => x.UpdatedBy)
+        .IsRequired(false);
+
         builder.Property(x => x.Id)
         .ValueGeneratedOnAdd()
         .UseMySqlIdentityColumn();
@@ -21,10 +33,11 @@ public class ProcedurePackMapping : IEntityTypeConfiguration<Core.Models.Procedu
 
         builder.Property(x => x.Description)
         .IsRequired()
-        .HasMaxLength(250);
+        .HasMaxLength(300);
 
         builder.Property(x => x.Price)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.Active)
         .IsRequired();

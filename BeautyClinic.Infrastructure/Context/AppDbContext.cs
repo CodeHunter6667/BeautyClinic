@@ -4,6 +4,7 @@ using BeautyClinic.Core.Models.Consulation;
 using BeautyClinic.Core.Models.Patient;
 using BeautyClinic.Core.Models.Person;
 using BeautyClinic.Core.Models.Procedure;
+using BeautyClinic.Core.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeautyClinic.Infrastructure.Context;
@@ -26,6 +27,7 @@ public class AppDbContext : DbContext
     public DbSet<Habits> Habits { get; set; }
     public DbSet<Measurements> Measurements { get; set; }
     public DbSet<PatientHistory> PatientHistories { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

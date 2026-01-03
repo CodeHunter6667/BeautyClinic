@@ -12,42 +12,65 @@ public class MeasurementsMapping : IEntityTypeConfiguration<Measurements>
 
         builder.HasKey(x => x.Id);
 
+        builder.Property(x => x.CreatedAt)
+        .IsRequired();
+
+        builder.Property(x => x.CreatedBy)
+        .IsRequired();
+
+        builder.Property(x => x.UpdatedAt)
+        .IsRequired(false);
+
+        builder.Property(x => x.UpdatedBy)
+        .IsRequired(false);
+
         builder.Property(x => x.Id)
         .ValueGeneratedOnAdd()
         .UseMySqlIdentityColumn();
 
         builder.Property(x => x.Weight)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.Height)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.Hip)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.Bust)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.LeftArm)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.RightArm)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.UpperAbdomen)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.LeftThigh)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.RightThigh)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.LeftCalf)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.RightCalf)
-        .IsRequired();
+        .IsRequired()
+        .HasColumnType("decimal(10,2)");
 
         builder.Property(x => x.MeasurementDate)
         .IsRequired();
