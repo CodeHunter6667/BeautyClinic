@@ -1,9 +1,10 @@
+using BeautyClinic.Core.Base;
 using BeautyClinic.Core.Models.Person;
 
 namespace BeautyClinic.Core.Models.Consulation;
 
-public class Anamnesis
+public class Anamnesis : BaseEntity
 {
     public Individual Client { get; set; } = new();
-    public long ClientId { get; set; }    
+    public long ClientId { get; set; }
 }
