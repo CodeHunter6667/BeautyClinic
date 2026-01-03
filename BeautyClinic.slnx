@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="BeautyClinic.Api/BeautyClinic.Api.csproj" />
   <Project Path="BeautyClinic.Core/BeautyClinic.Core.csproj" />
+  <Project Path="BeautyClinic.Infrastructure/BeautyClinic.Infrastructure.csproj" />
 </Solution>
