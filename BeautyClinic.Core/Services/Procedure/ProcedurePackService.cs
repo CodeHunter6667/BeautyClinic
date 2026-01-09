@@ -1,13 +1,61 @@
 using BeautyClinic.Core.Interfaces;
 using BeautyClinic.Core.Interfaces.Procedure;
 using BeautyClinic.Core.Models.Procedure;
-using BeautyClinic.Core.Services;
 
 namespace BeautyClinic.Core.Services.Procedure;
 
 public class ProcedurePackService : BaseService<ProcedurePack>, IProcedurePackService
 {
-    public ProcedurePackService(IProcedurePackRepository repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+    private readonly IProcedurePackProcedureRepository _packProcedureRepository;
+
+    public ProcedurePackService(
+        IProcedurePackRepository repository,
+        IProcedurePackProcedureRepository packProcedureRepository,
+        IUnitOfWork unitOfWork) : base(repository, unitOfWork)
     {
+        _packProcedureRepository = packProcedureRepository;
+    }
+
+    public async Task CreatePackWithProceduresAsync(ProcedurePack pack, IEnumerable<long> procedureIds)
+    {
+        await ExecuteInTransactionAsync(async () =>
+        {
+            await _repository.AddAsync(pack);
+            await _unitOfWork.CommitAsync();
+
+            foreach (var procedureId in procedureIds)
+            {
+                var packProcedure = new ProcedurePackProcedure
+                {
+                    ProcedurePackId = pack.Id,
+                    ProcedureId = procedureId
+                };
+                await _packProcedureRepository.AddAsync(packProcedure);
+            }
+
+            await _unitOfWork.CommitAsync();
+        });
+    }
+
+    public async Task UpdatePackWithProceduresAsync(ProcedurePack pack, IEnumerable<long> procedureIds)
+    {
+        await ExecuteInTransactionAsync(async () =>
+        {
+            _repository.Update(pack);
+
+            await _packProcedureRepository.RemoveByPackIdAsync(pack.Id);
+
+            foreach (var procedureId in procedureIds)
+            {
+                var packProcedure = new ProcedurePackProcedure
+                {
+                    ProcedurePackId = pack.Id,
+                    ProcedureId = procedureId
+                };
+                await _packProcedureRepository.AddAsync(packProcedure);
+            }
+
+            await _unitOfWork.CommitAsync();
+        });
     }
 }

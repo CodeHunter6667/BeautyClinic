@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using BeautyClinic.Core.Base;
 using BeautyClinic.Core.Interfaces;
 using BeautyClinic.Infrastructure.Context;
 using BeautyClinic.Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 

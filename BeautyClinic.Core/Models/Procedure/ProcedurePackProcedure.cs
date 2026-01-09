@@ -9,6 +9,4 @@ public class ProcedurePackProcedure : BaseEntity
 
     public long ProcedureId { get; set; }
     public Procedure Procedure { get; set; } = null!;
-
-    public int Quantity { get; set; }
 }

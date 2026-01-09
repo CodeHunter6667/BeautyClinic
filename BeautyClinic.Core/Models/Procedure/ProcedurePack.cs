@@ -9,4 +9,5 @@ public class ProcedurePack : BaseEntity
     public List<ProcedurePackProcedure> ProcedurePackProcedures { get; set; } = new();
     public decimal Price { get; set; }
     public bool Active { get; set; }
+    public int SessionsQuantity { get; set; }
 }

@@ -41,5 +41,8 @@ public class ProcedurePackMapping : IEntityTypeConfiguration<Core.Models.Procedu
 
         builder.Property(x => x.Active)
         .IsRequired();
+
+        builder.Property(x => x.SessionsQuantity)
+        .IsRequired();
     }
 }
