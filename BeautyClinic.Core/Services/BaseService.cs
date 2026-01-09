@@ -7,10 +7,12 @@ namespace BeautyClinic.Core.Services;
 public class BaseService<T> : IService<T> where T : BaseEntity
 {
     protected readonly IRepository<T> _repository;
+    protected readonly IUnitOfWork _unitOfWork;
 
-    public BaseService(IRepository<T> repository)
+    public BaseService(IRepository<T> repository, IUnitOfWork unitOfWork)
     {
         _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public virtual async Task<T?> GetByIdAsync(long id)
@@ -30,13 +32,16 @@ public class BaseService<T> : IService<T> where T : BaseEntity
 
     public virtual async Task AddAsync(T entity)
     {
-        await _repository.AddAsync(entity);
+        await ExecuteWithCommitAsync(() => _repository.AddAsync(entity));
     }
 
     public virtual async Task UpdateAsync(T entity)
     {
-        _repository.Update(entity);
-        await Task.CompletedTask;
+        await ExecuteWithCommitAsync(() =>
+        {
+            _repository.Update(entity);
+            return Task.CompletedTask;
+        });
     }
 
     public virtual async Task RemoveAsync(long id)
@@ -44,7 +49,38 @@ public class BaseService<T> : IService<T> where T : BaseEntity
         var entity = await _repository.GetByIdAsync(id);
         if (entity != null)
         {
-            _repository.Remove(entity);
+            await ExecuteWithCommitAsync(() =>
+            {
+                _repository.Remove(entity);
+                return Task.CompletedTask;
+            });
+        }
+    }
+
+    /// <summary>
+    /// Execute a write operation followed by a commit (no transaction).
+    /// </summary>
+    protected async Task ExecuteWithCommitAsync(Func<Task> action)
+    {
+        await action();
+        await _unitOfWork.CommitAsync();
+    }
+
+    /// <summary>
+    /// Execute a multi-step operation inside a transaction; use when touching multiple repositories.
+    /// </summary>
+    protected async Task ExecuteInTransactionAsync(Func<Task> action)
+    {
+        await _unitOfWork.BeginTransactionAsync();
+        try
+        {
+            await action();
+            await _unitOfWork.CommitTransactionAsync();
+        }
+        catch
+        {
+            await _unitOfWork.RollbackTransactionAsync();
+            throw;
         }
     }
 }
