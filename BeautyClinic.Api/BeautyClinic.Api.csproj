@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BeautyClinic.Infrastructure\BeautyClinic.Infrastructure.csproj" />
     <ProjectReference Include="..\BeautyClinic.Core\BeautyClinic.Core.csproj" />
   </ItemGroup>
