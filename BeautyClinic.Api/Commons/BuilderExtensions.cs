@@ -24,54 +24,57 @@ namespace BeautyClinic.Api.Commons;
 
 public static class BuilderExtensions
 {
-    public static void AddConfigurations(this WebApplicationBuilder builder)
+    extension(WebApplicationBuilder builder)
     {
-        Configurations.ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
-    }
+        public void AddConfigurations()
+        {
+            Configurations.ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+        }
 
-    public static void AddDbContext(this WebApplicationBuilder builder)
-    {
-        builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseMySql(Configurations.ConnectionString,
-            ServerVersion.AutoDetect(Configurations.ConnectionString)));
-    }
+        public void AddDbContext()
+        {
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseMySql(Configurations.ConnectionString,
+                    ServerVersion.AutoDetect(Configurations.ConnectionString)));
+        }
 
-    public static void AddRepositories(this WebApplicationBuilder builder)
-    {
-        builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        public void AddRepositories()
+        {
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        builder.Services.AddScoped<IAddressRepository, AddressRepository>();
-        builder.Services.AddScoped<IBodyAnamnesisRepository, BodyAnamnesisRepository>();
-        builder.Services.AddScoped<IFacialAnamnesisRepository, FacialAnamnesisRepository>();
-        builder.Services.AddScoped<IFemaleHabitsRepository, FemaleHabitsRepository>();
-        builder.Services.AddScoped<IHabitsRepository, HabitsRepository>();
-        builder.Services.AddScoped<IMeasurementsRepository, MeasurementsRepository>();
-        builder.Services.AddScoped<IPatientHistoryRepository, PatientHistoryRepository>();
-        builder.Services.AddScoped<IIndividualRepository, IndividualRepository>();
-        builder.Services.AddScoped<IProfessionalRepository, ProfessionalRepository>();
-        builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-        builder.Services.AddScoped<IProcedurePackRepository, ProcedurePackRepository>();
-        builder.Services.AddScoped<IProcedureRepository, ProcedureRepository>();
-        builder.Services.AddScoped<IProcedurePackProcedureRepository, ProcedurePackProcedureRepository>();
-    }
+            builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+            builder.Services.AddScoped<IBodyAnamnesisRepository, BodyAnamnesisRepository>();
+            builder.Services.AddScoped<IFacialAnamnesisRepository, FacialAnamnesisRepository>();
+            builder.Services.AddScoped<IFemaleHabitsRepository, FemaleHabitsRepository>();
+            builder.Services.AddScoped<IHabitsRepository, HabitsRepository>();
+            builder.Services.AddScoped<IMeasurementsRepository, MeasurementsRepository>();
+            builder.Services.AddScoped<IPatientHistoryRepository, PatientHistoryRepository>();
+            builder.Services.AddScoped<IIndividualRepository, IndividualRepository>();
+            builder.Services.AddScoped<IProfessionalRepository, ProfessionalRepository>();
+            builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            builder.Services.AddScoped<IProcedurePackRepository, ProcedurePackRepository>();
+            builder.Services.AddScoped<IProcedureRepository, ProcedureRepository>();
+            builder.Services.AddScoped<IProcedurePackProcedureRepository, ProcedurePackProcedureRepository>();
+        }
 
-    public static void AddServices(this WebApplicationBuilder builder)
-    {
-        builder.Services.AddScoped(typeof(IService<>), typeof(BaseService<>));
+        public void AddServices()
+        {
+            builder.Services.AddScoped(typeof(IService<>), typeof(BaseService<>));
 
-        builder.Services.AddScoped<IAddressService, AddressService>();
-        builder.Services.AddScoped<IBodyAnamnesisService, BodyAnamnesisService>();
-        builder.Services.AddScoped<IFacialAnamnesisService, FacialAnamnesisService>();
-        builder.Services.AddScoped<IFemaleHabitsService, FemaleHabitsService>();
-        builder.Services.AddScoped<IHabitsService, HabitsService>();
-        builder.Services.AddScoped<IMeasurementsService, MeasurementsService>();
-        builder.Services.AddScoped<IPatientHistoryService, PatientHistoryService>();
-        builder.Services.AddScoped<IIndividualService, IndividualService>();
-        builder.Services.AddScoped<IProfessionalService, ProfessionalService>();
-        builder.Services.AddScoped<IAppointmentService, AppointmentService>();
-        builder.Services.AddScoped<IProcedurePackService, ProcedurePackService>();
-        builder.Services.AddScoped<IProcedureService, ProcedureService>();
-        builder.Services.AddScoped<IProcedurePackProcedureService, ProcedurePackProcedureService>();
+            builder.Services.AddScoped<IAddressService, AddressService>();
+            builder.Services.AddScoped<IBodyAnamnesisService, BodyAnamnesisService>();
+            builder.Services.AddScoped<IFacialAnamnesisService, FacialAnamnesisService>();
+            builder.Services.AddScoped<IFemaleHabitsService, FemaleHabitsService>();
+            builder.Services.AddScoped<IHabitsService, HabitsService>();
+            builder.Services.AddScoped<IMeasurementsService, MeasurementsService>();
+            builder.Services.AddScoped<IPatientHistoryService, PatientHistoryService>();
+            builder.Services.AddScoped<IIndividualService, IndividualService>();
+            builder.Services.AddScoped<IProfessionalService, ProfessionalService>();
+            builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+            builder.Services.AddScoped<IProcedurePackService, ProcedurePackService>();
+            builder.Services.AddScoped<IProcedureService, ProcedureService>();
+            builder.Services.AddScoped<IProcedurePackProcedureService, ProcedurePackProcedureService>();
+        }
     }
 }
