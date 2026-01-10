@@ -1,6 +1,6 @@
 ﻿using BeautyClinic.Core.Enums;
 
-namespace BeautyClinic.Api.DTOs.Procedure;
+namespace BeautyClinic.Core.DTOs.Procedure;
 
 public class ProcedureDto
 {

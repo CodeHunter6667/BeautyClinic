@@ -1,4 +1,4 @@
-﻿namespace BeautyClinic.Api.DTOs.Patient;
+﻿namespace BeautyClinic.Core.DTOs.Patient;
 
 public class PatientHistoryDto
 {

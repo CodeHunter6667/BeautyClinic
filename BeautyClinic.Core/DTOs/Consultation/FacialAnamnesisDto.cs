@@ -1,6 +1,6 @@
 ﻿using BeautyClinic.Core.Enums;
 
-namespace BeautyClinic.Api.DTOs.Consultation;
+namespace BeautyClinic.Core.DTOs.Consultation;
 
 public class FacialAnamnesisDto
 {

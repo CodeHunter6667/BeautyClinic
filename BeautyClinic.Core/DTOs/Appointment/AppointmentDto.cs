@@ -1,6 +1,6 @@
 using BeautyClinic.Core.Enums;
 
-namespace BeautyClinic.Api.DTOs.Appointment;
+namespace BeautyClinic.Core.DTOs.Appointment;
 
 public class AppointmentDto
 {

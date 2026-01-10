@@ -1,6 +1,6 @@
 ﻿using BeautyClinic.Core.Enums;
 
-namespace BeautyClinic.Api.DTOs.Patient;
+namespace BeautyClinic.Core.DTOs.Patient;
 
 public class FemaleHabitsDto
 {

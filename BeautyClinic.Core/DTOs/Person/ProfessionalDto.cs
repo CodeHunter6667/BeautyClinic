@@ -1,7 +1,7 @@
-﻿using BeautyClinic.Api.DTOs.ValueObjects;
+﻿using BeautyClinic.Core.DTOs.ValueObjects;
 using BeautyClinic.Core.Enums;
 
-namespace BeautyClinic.Api.DTOs.Person;
+namespace BeautyClinic.Core.DTOs.Person;
 
 public class ProfessionalDto
 {

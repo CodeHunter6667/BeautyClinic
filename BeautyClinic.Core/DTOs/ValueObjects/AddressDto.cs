@@ -1,4 +1,4 @@
-﻿namespace BeautyClinic.Api.DTOs.ValueObjects;
+﻿namespace BeautyClinic.Core.DTOs.ValueObjects;
 
 public class AddressDto
 {

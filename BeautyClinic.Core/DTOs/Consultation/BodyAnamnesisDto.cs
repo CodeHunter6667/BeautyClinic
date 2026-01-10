@@ -1,6 +1,6 @@
 ﻿using BeautyClinic.Core.Models.Patient;
 
-namespace BeautyClinic.Api.DTOs.Consultation;
+namespace BeautyClinic.Core.DTOs.Consultation;
 
 public class BodyAnamnesisDto
 {
