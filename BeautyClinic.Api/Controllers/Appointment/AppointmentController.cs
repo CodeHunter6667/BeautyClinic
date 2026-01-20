@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BeautyClinic.Api.Controllers.Appointment;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/v1/[controller]")]
 public class AppointmentController(IAppointmentService appointmentService) : ControllerBase
 {
     [HttpGet]
