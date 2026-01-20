@@ -1,4 +1,6 @@
-﻿using BeautyClinic.Core.Enums;
+﻿using BeautyClinic.Core.DTOs.Patient;
+using BeautyClinic.Core.Enums;
+using BeautyClinic.Core.Models.Patient;
 
 namespace BeautyClinic.Core.DTOs.Consultation;
 
@@ -20,4 +22,8 @@ public class FacialAnamnesisDto
     public EOilinessClassification OilinessClassification { get; set; }
     public ESensitivityClassification SensitivityClassification { get; set; }
     public string Notes { get; set; } = string.Empty;
+    public MeasurementsDto Measurement { get; set; } = new();
+    public FemaleHabitsDto FemaleHabits { get; set; } = new();
+    public Habits Habits { get; set; } = new();
+    public PatientHistoryDto PatientHistory { get; set; } = new();
 }

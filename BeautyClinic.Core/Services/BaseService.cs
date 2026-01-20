@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using System.Security.Claims;
 using BeautyClinic.Core.Base;
 using BeautyClinic.Core.Interfaces;
 
@@ -14,6 +15,55 @@ public class BaseService<T> : IService<T> where T : BaseEntity
         _repository = repository;
         _unitOfWork = unitOfWork;
     }
+
+    public async Task<T> InsertOrUpdateAsync(T entity)
+    {
+        if (entity.IsSaved)
+            await Update(entity);
+        else
+            await Insert(entity);
+        return entity;
+    }
+
+    private async Task<T> Insert(T entity)
+    {
+        PreInsertOrUpdate(entity);
+        await Inserting(entity);
+        PostInsertOrUpdate(entity);
+        return entity;
+    }
+    
+    private async Task<T> Update(T entity)
+    {
+        PreInsertOrUpdate(entity);
+        await Updating(entity);
+        PostInsertOrUpdate(entity);
+        return entity;
+    }
+    
+    private async Task<T> Inserting(T entity)
+    {
+        entity.CreatedAt = DateTime.UtcNow;
+        entity.UserId = ClaimsPrincipal.Current.Identity?.Name ?? string.Empty;
+        await ExecuteWithCommitAsync(() => _repository.AddAsync(entity));
+        return entity;
+    }
+    
+    private async Task<T> Updating(T entity)
+    {
+        entity.UpdatedAt = DateTime.UtcNow;
+        entity.UserId = ClaimsPrincipal.Current.Identity?.Name ?? string.Empty;
+        await ExecuteWithCommitAsync(() =>
+        {
+            _repository.Update(entity);
+            return Task.CompletedTask;
+        });
+        return entity;
+    }
+    
+    protected virtual void PreInsertOrUpdate(T entity){}
+    
+    protected virtual void PostInsertOrUpdate(T entity){}
 
     public virtual async Task<T?> GetByIdAsync(long id)
     {

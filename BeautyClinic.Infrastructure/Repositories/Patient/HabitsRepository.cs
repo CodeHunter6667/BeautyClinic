@@ -1,13 +1,22 @@
+using BeautyClinic.Core.DTOs.Patient;
+using BeautyClinic.Core.Exceptions;
+using BeautyClinic.Core.Extensions;
 using BeautyClinic.Core.Interfaces.Patient;
 using BeautyClinic.Core.Models.Patient;
 using BeautyClinic.Infrastructure.Context;
-using BeautyClinic.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeautyClinic.Infrastructure.Repositories.Patient;
 
-public class HabitsRepository : Repository<Habits>, IHabitsRepository
+public class HabitsRepository(AppDbContext context) : Repository<Habits>(context), IHabitsRepository
 {
-    public HabitsRepository(AppDbContext context) : base(context)
+    public async Task<HabitsDto> GetHabitsByClientId(long entityClientId)
     {
+        var entity = await _context.Habits.AsNoTracking().FirstOrDefaultAsync(x => x.ClientId == entityClientId);
+        if (entity == null)
+            throw new ResourceNotFoundException("Hábitos não encontrados para o cliente especificado.");
+        
+        var habitsDto = entity.MapToDto();
+        return habitsDto;
     }
 }

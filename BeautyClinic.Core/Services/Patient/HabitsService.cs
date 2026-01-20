@@ -1,13 +1,13 @@
+using BeautyClinic.Core.DTOs.Patient;
 using BeautyClinic.Core.Interfaces;
 using BeautyClinic.Core.Interfaces.Patient;
 using BeautyClinic.Core.Models.Patient;
-using BeautyClinic.Core.Services;
 
 namespace BeautyClinic.Core.Services.Patient;
 
-public class HabitsService : BaseService<Habits>, IHabitsService
+public class HabitsService(IHabitsRepository repository, IUnitOfWork unitOfWork)
+    : BaseService<Habits>(repository, unitOfWork), IHabitsService
 {
-    public HabitsService(IHabitsRepository repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
-    {
-    }
+    public Task<HabitsDto> GetHabitsByClientId(long entityClientId)
+        => repository.GetHabitsByClientId(entityClientId);
 }
